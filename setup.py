@@ -9,4 +9,5 @@ if 'develop' in argv[1:]:
 
 setup(name='Glask', version='0.0.1', packages=['glask'], license='BSD',
       description='An extension for flask applications with best practices.',
+      url='https://github.com/vamf12/Glask',
       install_requires=install_requires)
