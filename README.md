@@ -1,4 +1,4 @@
 Glask
 =====
 
-An extension for flask applications with on best practices.
+An extension for flask applications with best practices.
