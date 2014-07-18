@@ -1,4 +1,7 @@
-.idea
-Glask.egg-info
-venv
+/.idea/
+/Glask.egg-info/
+/venv/
+/build/
+/dist/
 *.pyc
+*.swp
