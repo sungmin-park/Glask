@@ -1,0 +1,4 @@
+.idea
+Glask.egg-info
+venv
+*.pyc
