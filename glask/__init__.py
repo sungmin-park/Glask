@@ -3,11 +3,11 @@ import flask
 
 
 def current_for(**values):
-    return url_for(request.endpoint, **values)
+    return url_for(endpoint=request.endpoint, **values)
 
 
 def redirect_for(endpoint, **values):
-    return redirect(url_for(endpoint, **values))
+    return redirect(url_for(endpoint=endpoint, **values))
 
 
 class Request(flask.Request):
