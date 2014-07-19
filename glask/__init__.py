@@ -1,9 +1,13 @@
-from flask import request, url_for
+from flask import request, url_for, redirect
 import flask
 
 
 def current_for(**values):
     return url_for(request.endpoint, **values)
+
+
+def redirect_for(endpoint, **values):
+    return redirect(url_for(endpoint, **values))
 
 
 class Request(flask.Request):
