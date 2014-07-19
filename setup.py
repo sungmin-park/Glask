@@ -4,7 +4,7 @@ from setuptools import setup
 
 version = '0.0.3'
 
-install_requires = ['Flask>=0.10.1']
+install_requires = ['Flask>=0.10.1', 'python-dateutil>=2.2']
 if 'develop' in argv[1:]:
     install_requires += ['pytest>=2.5.2']
 
