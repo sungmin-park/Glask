@@ -2,9 +2,9 @@ from sys import argv
 
 from setuptools import setup
 
-version = '0.0.4'
+version = '0.0.5'
 
-install_requires = ['Flask>=0.10.1', 'python-dateutil>=2.2']
+install_requires = ['Flask>=0.10.1', 'python-dateutil>=2.2', 'Flask-DebugToolbar>=0.9.0']
 if 'develop' in argv[1:]:
     install_requires += ['pytest>=2.5.2', 'Flask-SQLAlchemy']
 
