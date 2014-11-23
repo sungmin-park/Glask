@@ -20,3 +20,13 @@ def test_form_fields():
     assert blank_form.fields() == tuple()
     not_blank_form = NotBlankForm()
     assert not_blank_form.fields() == (not_blank_form.item,)
+
+
+def test_prefix():
+    class SomePrefixedForm(Form):
+        pass
+
+    some_prefixed_form = SomePrefixedForm()
+
+    # noinspection PyProtectedMember
+    assert some_prefixed_form._prefix == 'some_prefixed_form_'
