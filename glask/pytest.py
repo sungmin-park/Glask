@@ -17,6 +17,8 @@ class WrapMiddleware():
     def __init__(self):
         self.app = None
         self._default_app = Glask(__name__)
+        self.port = 7000
+        self.index_url = 'http://localhost:%d' % self.port
 
         # noinspection PyUnusedLocal
         @self._default_app.route('/')
@@ -40,7 +42,7 @@ def wsgi_server(request):
 
     def target():
         run_simple(
-            hostname='localhost', application=server, port=5000,
+            hostname='localhost', application=server, port=server.port,
             use_reloader=False,
         )
 
@@ -49,7 +51,7 @@ def wsgi_server(request):
     # wait for server launched
     while True:
         try:
-            with closing(urlopen('http://localhost:5000/')) as f:
+            with closing(urlopen(server.index_url + '/')) as f:
                 f.read()
                 break
         except URLError, e:
@@ -59,7 +61,7 @@ def wsgi_server(request):
 
     yield server
 
-    with closing(urlopen('http://localhost:5000/quit')) as f:
+    with closing(urlopen(server.index_url + '/quit')) as f:
         f.read()
     thread.join()
 
@@ -68,7 +70,7 @@ def wsgi_server(request):
 @pytest.yield_fixture
 def live_app(request, wsgi_server, app):
     wsgi_server.app = app
-    with app.test_request_context('http://localhost:5000/'):
+    with app.test_request_context(wsgi_server.index_url):
         yield app
     wsgi_server.app = None
 
@@ -85,10 +87,5 @@ def browser():
     type = os.environ.get('TEST_BROWSER', 'firefox')
     b = {'firefox': webdriver.Firefox,
          'phantomjs': webdriver.PhantomJS}.get(type)()
-    try:
-        yield b
-        if type != 'phantomjs':
-            b.quit()
-    finally:
-        if type == 'phantomjs':
-            b.quit()
+    yield b
+    b.quit()

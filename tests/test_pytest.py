@@ -30,7 +30,7 @@ def app():
 # noinspection PyUnusedLocal,PyShadowingNames
 def test_live_app(live_app):
     url = url_for('index', _external=True)
-    assert url == 'http://localhost:5000/'
+    assert url == 'http://localhost:7000/'
     index = urlopen(url).read()
     assert index == 'It works!!'
 
@@ -38,7 +38,7 @@ def test_live_app(live_app):
 # noinspection PyUnusedLocal,PyShadowingNames
 def test_live_app2(live_app):
     url = url_for('index', _external=True)
-    assert url == 'http://localhost:5000/'
+    assert url == 'http://localhost:7000/'
     index = urlopen(url).read()
     assert index == 'It works!!'
 
