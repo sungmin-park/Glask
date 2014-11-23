@@ -1,3 +1,4 @@
+from logging import StreamHandler, INFO
 from flask import request, url_for, redirect
 import flask
 from flask.ext.debugtoolbar import DebugToolbarExtension
@@ -41,3 +42,6 @@ class Glask(flask.Flask):
     def init_after_config(self):
         if self.debug:
             DebugToolbarExtension(self)
+        else:
+            self.logger.addHandler(StreamHandler())
+            self.logger.setLevel(INFO)
