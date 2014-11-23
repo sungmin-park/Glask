@@ -7,8 +7,9 @@ import inflection
 class Form(wtf.Form):
     def __init__(self, formdata=_Auto, obj=None, prefix='', csrf_context=None,
                  secret_key=None, csrf_enabled=None, *args, **kwargs):
+        self.form_id = inflection.underscore(self.__class__.__name__)
         if not prefix:
-            prefix = inflection.underscore(self.__class__.__name__) + '_'
+            prefix = self.form_id + '_'
         super(Form, self).__init__(formdata=formdata, obj=obj, prefix=prefix,
                                    csrf_context=csrf_context,
                                    secret_key=secret_key,

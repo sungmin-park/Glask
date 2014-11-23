@@ -22,6 +22,14 @@ def test_form_fields():
     assert not_blank_form.fields() == (not_blank_form.item,)
 
 
+def test_id():
+    class SomeLongNamedForm(Form):
+        pass
+
+    some_long_named_form = SomeLongNamedForm()
+    assert some_long_named_form.form_id == 'some_long_named_form'
+
+
 def test_prefix():
     class SomePrefixedForm(Form):
         pass
