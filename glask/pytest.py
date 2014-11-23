@@ -74,5 +74,5 @@ def live_app(request, wsgi_server, app):
 # noinspection PyUnusedLocal
 @pytest.yield_fixture
 def client(request, app):
-    with app.test_request_context('http://localhost:5000/'):
+    with app.test_request_context('http://localhost/'):
         yield app.test_client()

@@ -3,7 +3,7 @@ from __future__ import unicode_literals, print_function, absolute_import, \
 from urllib2 import urlopen
 
 from flask import url_for
-from glask import Glask
+from glask import Glask, redirect_for
 # noinspection PyUnresolvedReferences
 from glask.pytest import live_app, wsgi_server, client
 import pytest
@@ -17,6 +17,11 @@ def app():
     @app.route('/')
     def index():
         return 'It works!!'
+
+    # noinspection PyUnusedLocal
+    @app.route('/redirect')
+    def redirect():
+        return redirect_for('index')
 
     with app.app_context():
         yield app
@@ -39,4 +44,9 @@ def test_live_app2(live_app):
 
 
 def test_client(client):
+    # check client works
     assert 'It works!!' in client.get(url_for('index')).data
+
+    # check url_for external works
+    assert client.get(url_for('redirect')).location == \
+           url_for('index', _external=True)
