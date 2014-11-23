@@ -6,9 +6,7 @@ from time import sleep
 from urllib2 import urlopen, URLError
 
 from flask import request
-
 from glask import Glask
-
 import pytest
 from werkzeug.serving import run_simple
 
@@ -71,3 +69,10 @@ def live_app(request, wsgi_server, app):
     with app.test_request_context('http://localhost:5000/'):
         yield app
     wsgi_server.app = None
+
+
+# noinspection PyUnusedLocal
+@pytest.yield_fixture
+def client(request, app):
+    with app.test_request_context('http://localhost:5000/'):
+        yield app.test_client()

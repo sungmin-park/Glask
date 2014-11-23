@@ -5,7 +5,7 @@ from urllib2 import urlopen
 from flask import url_for
 from glask import Glask
 # noinspection PyUnresolvedReferences
-from glask.pytest import live_app, wsgi_server
+from glask.pytest import live_app, wsgi_server, client
 import pytest
 
 
@@ -36,3 +36,7 @@ def test_live_app2(live_app):
     assert url == 'http://localhost:5000/'
     index = urlopen(url).read()
     assert index == 'It works!!'
+
+
+def test_client(client):
+    assert 'It works!!' in client.get(url_for('index')).data
