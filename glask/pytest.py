@@ -5,9 +5,11 @@ from threading import Thread
 from time import sleep
 from urllib2 import urlopen, URLError
 
+import os
 from flask import request
 from glask import Glask
 import pytest
+from selenium import webdriver
 from werkzeug.serving import run_simple
 
 
@@ -76,3 +78,17 @@ def live_app(request, wsgi_server, app):
 def client(request, app):
     with app.test_request_context('http://localhost/'):
         yield app.test_client()
+
+
+@pytest.yield_fixture
+def browser():
+    type = os.environ.get('TEST_BROWSER', 'firefox')
+    b = {'firefox': webdriver.Firefox,
+         'phantomjs': webdriver.PhantomJS}.get(type)()
+    try:
+        yield b
+        if type != 'phantomjs':
+            b.quit()
+    finally:
+        if type == 'phantomjs':
+            b.quit()

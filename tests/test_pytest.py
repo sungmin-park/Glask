@@ -5,7 +5,7 @@ from urllib2 import urlopen
 from flask import url_for
 from glask import Glask, redirect_for
 # noinspection PyUnresolvedReferences
-from glask.pytest import live_app, wsgi_server, client
+from glask.pytest import live_app, wsgi_server, client, browser
 import pytest
 
 
@@ -50,3 +50,8 @@ def test_client(client):
     # check url_for external works
     assert client.get(url_for('redirect')).location == \
            url_for('index', _external=True)
+
+
+def test_browser(live_app, browser):
+    browser.get(url_for('index', _external=True))
+    assert browser.find_element_by_tag_name('body').text == 'It works!!'
