@@ -1,3 +1,4 @@
+from functools import wraps
 from logging import StreamHandler, INFO
 from flask import request, url_for, redirect
 import flask
@@ -33,8 +34,9 @@ class Glask(flask.Flask):
         self.request_class = Request
         _config_from_object = self.config.from_object
 
-        def config_from_object(object):
-            _config_from_object(object)
+        @wraps(wrapped=_config_from_object)
+        def config_from_object(*args, **kwargs):
+            _config_from_object(*args, **kwargs)
             self.init_after_config()
 
         self.config.from_object = config_from_object

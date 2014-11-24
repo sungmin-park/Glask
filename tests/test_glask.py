@@ -16,3 +16,8 @@ def test_http_methods():
     with app.test_request_context('/glask/edit', method='POST'):
         assert request.is_get is False
         assert request.is_post is True
+
+
+def test_config_from_object_current_method_signiture():
+    glask = Glask(import_name=__name__)
+    glask.config.from_object(obj=object())
