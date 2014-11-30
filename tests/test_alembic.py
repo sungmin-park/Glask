@@ -1,16 +1,13 @@
 from __future__ import unicode_literals, print_function, absolute_import, \
     division
-from uuid import uuid4
-
-from glask import Glask
 from glask.alembic import pg_cursor, parse_dbname, upgrade
 import pytest
+from tests.alembic_test_app import make_app
 
 
 @pytest.yield_fixture
 def app():
-    app = Glask(__name__)
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///glask_' + uuid4().hex
+    app = make_app()
     with app.app_context():
         yield app
 
