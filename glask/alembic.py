@@ -26,12 +26,13 @@ def upgrade(app):
     dbname = parse_dbname(app=app)
     with pg_cursor() as cursor:
         cursor.execute('CREATE DATABASE %s' % dbname)
-        project_root = path.join(app.root_path, '..')
-        alembic_ini = path.join(project_root, 'alembic.ini')
-        alembic_config = Config(file_=alembic_ini)
-        alembic_config.set_main_option('script_location',
-                                       path.join(project_root, 'alembic'))
-        command.upgrade(alembic_config, 'head')
+    project_root = path.join(app.root_path, '..')
+    alembic_ini = path.join(project_root, 'alembic.ini')
+    alembic_config = Config(file_=alembic_ini)
+    alembic_config.set_main_option('script_location',
+                                   path.join(project_root, 'alembic'))
+    command.upgrade(alembic_config, 'head')
+    app.logger.disabled = False
     yield app
     with pg_cursor() as cursor:
         cursor.execute(

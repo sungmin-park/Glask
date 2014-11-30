@@ -25,6 +25,7 @@ def test_upgrade(app):
     dbname = parse_dbname(app=app)
     assert not db_exists(name=dbname)
     with upgrade(app=app):
+        assert app.logger.disabled == False
         assert db_exists(name=dbname)
         with pg_cursor(database=dbname) as cursor:
             cursor.execute('SELECT * FROM alembic_version')
