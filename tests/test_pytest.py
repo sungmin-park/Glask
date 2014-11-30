@@ -52,6 +52,7 @@ def test_client(client):
            url_for('index', _external=True)
 
 
+# noinspection PyUnusedLocal
 def test_browser(live_app, browser):
     browser.get(url_for('index', _external=True))
     assert browser.find_element_by_tag_name('body').text == 'It works!!'
