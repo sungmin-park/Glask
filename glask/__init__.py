@@ -1,5 +1,7 @@
 from functools import wraps
 from logging import StreamHandler, INFO
+import functools
+
 from flask import request, url_for, redirect
 import flask
 from flask.ext.debugtoolbar import DebugToolbarExtension
@@ -47,3 +49,17 @@ class Glask(flask.Flask):
         else:
             self.logger.addHandler(StreamHandler())
             self.logger.setLevel(INFO)
+
+
+class TemplateFilter(object):
+    def __init__(self):
+        self.filters = {}
+
+    def __call__(self, filter, name=None):
+        if not callable(filter):
+            return functools.partial(self.__call__, name=filter)
+        self.filters[name or filter.__name__] = filter
+        return filter
+
+    def register(self, app):
+        app.jinja_env.filters.update(self.filters)
