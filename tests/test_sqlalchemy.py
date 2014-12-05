@@ -28,5 +28,5 @@ def test_pager():
     assert pagination.items == Post.query.limit(10).offset(10).all()
 
     # test page navigation
-    pagination = Pagination(query=Post.query, page=11)
-    assert pagination.page == 11
+    pagination = Pagination(query=Post.query, page=77)
+    assert pagination.page == 77
