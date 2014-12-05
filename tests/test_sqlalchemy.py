@@ -16,7 +16,7 @@ class Post(db.Model):
 
 def test_pager():
     db.create_all()
-    [db.session.add(Post()) for _ in range(123)]
+    [db.session.add(Post()) for _ in range(1132)]
     db.session.commit()
 
     # test page items
@@ -28,5 +28,5 @@ def test_pager():
     assert pagination.items == Post.query.limit(10).offset(10).all()
 
     # test page navigation
-    pagination = Pagination(query=Post.query, page=7)
-    assert pagination.page == 7
+    pagination = Pagination(query=Post.query, page=11)
+    assert pagination.page == 11
