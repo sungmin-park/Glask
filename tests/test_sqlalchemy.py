@@ -2,7 +2,7 @@ from sqlalchemy import Column, Integer
 
 from glask import Glask
 
-from glask.sqlalchemies import Pagination
+from glask.sqlalchemy import Pagination
 from flask.ext.sqlalchemy import SQLAlchemy
 
 
