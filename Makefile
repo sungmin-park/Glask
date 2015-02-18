@@ -10,3 +10,6 @@ setup: venv
 
 test: setup
 	venv/bin/py.test tests
+
+upload: test clean
+	venv/bin/python setup.py sdist upload
