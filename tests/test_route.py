@@ -19,5 +19,5 @@ def test_current_for():
 
 def test_redirect_tor():
     with app.test_request_context('/glask'):
-        assert redirect_for('show_glask').response == \
-               redirect(url_for('show_glask')).response
+        assert redirect_for('show_glask').response == redirect(
+            url_for('show_glask')).response
