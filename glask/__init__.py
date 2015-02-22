@@ -5,6 +5,7 @@ import functools
 from flask import request, url_for, redirect
 import flask
 from flask.ext.debugtoolbar import DebugToolbarExtension
+from flask.ext.wtf import CsrfProtect
 
 
 def current_for(**values):
@@ -40,6 +41,7 @@ class Glask(flask.Flask):
                                     instance_path, instance_relative_config)
         self.jinja_env.globals.update(current_for=current_for)
         self.request_class = Request
+        CsrfProtect(self)
         _config_from_object = self.config.from_object
 
         @wraps(wrapped=_config_from_object)
