@@ -1,5 +1,5 @@
 from flask import url_for, redirect
-from glask import current_for, Glask, redirect_for
+from glask import current_for, Glask, redirect_for, return_for
 
 app = Glask(__name__)
 
@@ -17,7 +17,17 @@ def test_current_for():
     assert app.jinja_env.globals.get('current_for') == current_for
 
 
-def test_redirect_tor():
+def test_redirect_for():
     with app.test_request_context('/glask'):
         assert redirect_for('show_glask').response == redirect(
             url_for('show_glask')).response
+
+
+def test_return_for():
+    with app.test_request_context('/glask'):
+        assert return_for('show_glask', name='value').response == redirect_for(
+            'show_glask', name='value').response
+
+    with app.test_request_context('/glask?return_to=/'):
+        assert return_for('show_glask', name='value').response == redirect(
+            '/').response

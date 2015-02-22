@@ -15,6 +15,12 @@ def redirect_for(endpoint, **values):
     return redirect(url_for(endpoint=endpoint, **values))
 
 
+def return_for(endpoint, **values):
+    return redirect(
+        request.values.get('return_to', url_for(endpoint=endpoint, **values))
+    )
+
+
 class Request(flask.Request):
     @property
     def is_get(self):
