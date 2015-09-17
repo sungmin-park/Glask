@@ -1,3 +1,8 @@
+import sys
+if '__pypy__' in sys.builtin_module_names:
+    import psycopg2cffi.compat
+    psycopg2cffi.compat.register()
+
 from functools import wraps
 from logging import StreamHandler, INFO
 import functools
